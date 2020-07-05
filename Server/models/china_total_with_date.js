@@ -1,6 +1,6 @@
 module.exports = function (db, callback) {
 	db.define("china_total_with_date", {
-		id: Number,
+		id: String,
 		date: String,
 		confirmed: Number,
 		suspected: Number,

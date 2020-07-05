@@ -11,7 +11,7 @@
 	},
 	"db_config" : {
 		"protocol" : "mysql",
-		"host" : "127.0.0.1",
+		"host" : "121.41.225.123",
 		"database" : "mydb",
 		"user" : "root",
 		"password" : "root",

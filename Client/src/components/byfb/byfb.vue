@@ -26,7 +26,7 @@
 
 <script>
 import echarts from 'echarts'
-import '../../../node_modules/echarts/map/js/china.js'
+import './china.js'
 import '../../../node_modules/echarts/theme/roma.js'
 
 export default {

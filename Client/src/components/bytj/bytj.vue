@@ -11,14 +11,14 @@
       <!-- 2.为Echarts准备一个Dom -->
       <div class="fillcontain">
         <div class="fillcontainer" ref="fillcontainer">
-          <el-row :gutter="10">
-            <el-col :span="12" style="height:100%;">
-              <div id="typePosition"></div>
-            </el-col>
-            <el-col :span="12" style="height:100%;">
-              <div id="typePosition2"></div>
-            </el-col>
-          </el-row>
+          <iframe
+            v-show="true"
+            id="show-iframe"
+            frameborder="0"
+            name="showHere"
+            scrolling="auto"
+            src="http://121.41.225.123:8500"
+          ></iframe>
         </div>
       </div>
     </el-card>
@@ -26,25 +26,22 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-import '../../../node_modules/echarts/theme/roma.js'
-
+import Home from '../Home.vue'
 export default {
   data() {
     return {}
   },
   created() {},
-  methods: {},
-  async mounted() {
-    var myChart = echarts.init(document.getElementById('typePosition'))
-    const { data: res } = await this.$http.get('reports/type/4')
-    if (res.meta.status !== 200) return this.$message('获取折线图数据失败!')
-    myChart.setOption(res.data)
+  methods: {
+    switch() {
+      Home.methods.togleCollapse2()
+    }
+  },
 
-    var myChart2 = echarts.init(document.getElementById('typePosition2'))
-    const { data: res2 } = await this.$http.get('reports/type/5')
-    if (res2.meta.status !== 200) return this.$message('获取折线图数据失败!')
-    myChart2.setOption(res2.data)
+  mounted() {
+    const oIframe = document.getElementById('show-iframe')
+    oIframe.style.width = '100%'
+    oIframe.style.height = '100%'
   }
 }
 </script>
@@ -52,8 +49,7 @@ export default {
 .fillcontain {
   position: relative;
   width: 100%;
-  height: 100%;
-  padding: 20px 20px 0px 20px;
+  height: 680px;
   -webkit-box-shadow: 0 0 10px #2fb6f6;
   box-shadow: 0 0 10px #2fb6f6;
   border-radius: 10px;
@@ -63,16 +59,13 @@ export default {
 }
 .fillcontainer {
   width: 100%;
+  height: 100%;
   text-align: center;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background: #ffffff;
 }
-#typePosition,
-#typePosition2 {
-  position: relative;
-  width: 100%;
-  height: 620px;
-  border-radius: 10px;
+.el-icon-s-fold {
+  font-size: 20px;
 }
 </style>

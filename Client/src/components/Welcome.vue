@@ -1,30 +1,23 @@
 <template>
   <div>
-    <!-- 面包屑导航区 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>首页总览</el-breadcrumb-item>
-    </el-breadcrumb>
-
     <!-- 卡片视图 -->
-    <el-card>
       <!-- 2.为Echarts准备一个Dom -->
       <div class="fillcontain">
         <div class="fillcontainer" ref="fillcontainer">
-          <el-row :gutter="10">
-            <el-col :span="12" style="height:100%;width:100%">
-              <div id="typePosition"></div>
-            </el-col>
-          </el-row>
+          <iframe
+            v-show="true"
+            id="show-iframe"
+            frameborder="0"
+            name="showHere"
+            scrolling="auto"
+            src="http://localhost:9000/#flatmap/china"
+          ></iframe>
         </div>
       </div>
-    </el-card>
   </div>
 </template>
 
 <script>
-import '../../node_modules/echarts/theme/roma.js'
-import echarts from 'echarts'
 import Home from './Home.vue'
 export default {
   data() {
@@ -37,11 +30,10 @@ export default {
     }
   },
 
-  async mounted() {
-    var myChart = echarts.init(document.getElementById('typePosition'))
-    const { data: res } = await this.$http.get('reports/type/2')
-    if (res.meta.status !== 200) return this.$message('获取3D地图数据失败!')
-    myChart.setOption(res.data)
+  mounted() {
+    const oIframe = document.getElementById('show-iframe')
+    oIframe.style.width = '100%'
+    oIframe.style.height = '100%'
   }
 }
 </script>
@@ -49,8 +41,7 @@ export default {
 .fillcontain {
   position: relative;
   width: 100%;
-  height: 100%;
-  padding: 20px 20px 0px 20px;
+  height: 700px;
   -webkit-box-shadow: 0 0 10px #2fb6f6;
   box-shadow: 0 0 10px #2fb6f6;
   border-radius: 10px;
@@ -60,28 +51,11 @@ export default {
 }
 .fillcontainer {
   width: 100%;
+  height: 100%;
   text-align: center;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background: #ffffff;
-}
-#typePosition {
-  position: relative;
-  width: 100%;
-  height: 620px;
-  border-radius: 10px;
-}
-#typePosition2 {
-  position: relative;
-  width: 98%;
-  height: 310px;
-  border-radius: 10px;
-}
-#typePosition3 {
-  position: relative;
-  width: 100%;
-  height: 310px;
-  border-radius: 10px;
 }
 .el-icon-s-fold {
   font-size: 20px;
